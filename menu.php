@@ -65,7 +65,6 @@
         <a class="nav-link" aria-current="page" href="#" data-bs-toggle="modal" data-open='modal1'>
           <i class="fa fa-solid fa-file-pen">
           </i>
-          </i>
             Añadir publicación
         </a>
       </li>
@@ -149,8 +148,8 @@
               <a id='xxx' href='carousel'>
               <div>MOSTRAR TODAS<br><i class='fa fa-newspaper'></i></div>
               </a>
-              <a  id='xxx' href='historico'>
-              <div>HISTORICO<br><i class='fa-solid fa-book'></i></div>
+              <a  id='xxx' href='gestionarpublicaciones'>
+              <div>GESTIONAR<br><i class='fa-solid fa-book'></i></div>
               </a>
               <a id='xxx' href='mostrarUsuarios'>
               <div>USUARIOS<br><i  class='fa fa-user'></i></div>
@@ -158,8 +157,14 @@
               <a id='xxx' href='gestionarPantallas'>
               <div>PANTALLAS<br><i  class='fa fa-tv'></i></div>
               </a>
-          
+              <a id='xxx' href='historico'>
+              <div>HISTÓRICO<br><i  class='fa-brands fa-dropbox'></i></div>
+              </a>
+
             ";
+            // <a id='xxx' href='pantallas_asignadas'>
+            // <div>PUBLICACIONES ASIGNADAS<br><i class='fa-solid fa-wifi'></i></div>
+            // </a>
             }else{
               echo  '<a id="xxx1" class="open-modal2" data-open="modal4">
                       <div>EDITAR USUARIO<br><i class="fa-solid fa-user-pen"></i></div>
@@ -222,16 +227,17 @@
                 </select>
                 <br>
                 <br>
-                Correo electronico:<br><input name="email" type="email" id="mail">
+                Correo electronico:<br><input name="email" type="email" id="mail"><br>
                 <div id="alert2" class="alert alert-danger" role="alert">Se requiere el email</div>
                 <div id="alert3" class="alert alert-danger" role="alert">Este email no es valido</div>
-               
+               Contraseña:<br><input type='password' name='clave' id='clave'>
+               <div id="alertclave" class="alert alert-danger" role="alert">Se requiere clave!!</div>
                 <br>
                 <br>
-                <input id="VALIDAR" name="crear" type="submit" value="CREAR"> 
+                <input  class='btn btn-success edit' name="crear" type="submit" value="CREAR"> 
               </form>
               <br>
-              <p>* Se le mandara un correo con su contraseña por defecto y en su primer inicio de sesión podra cambiarla</p>
+             
             </section>
       
             <footer class="modal-footer">...</footer>
@@ -249,25 +255,25 @@
 
             <section class="modal-content">
           
-              <form ENCTYPE="multipart/form-data" method="post" action="insertarnoticia.php"  onsubmit="return validacion()">        
+              <form ENCTYPE="multipart/form-data" method="post" action="insertarnoticia.php"  onsubmit="return validacion()">     
+              <div id="alert4" class="alert alert-danger" role="alert">No puedes dejar elementos vacios</div>   
                 <div class="mb-3">
                   <label for="exampleFormControlInput1" class="form-label">Asunto</label>
                   <input type="text" class="form-control" id="asunto" placeholder="Asunto" name='titulo'>
-                  <div id="alertasunto" class="alert alert-danger" role="alert">No puede haber noticia sin asunto!!</div>
+    
                 </div>
                 <div class="mb-3">
                   <label for="exampleFormControlTextarea1" class="form-label">Cuerpo publicación</label>
                   
                   <textarea class="form-control" id="cuerpo" rows="3" name='noticia'></textarea>
-                  <div id="alertcuerpo" class="alert alert-danger" role="alert">No puede haber noticia sin cuerpo!!</div>
+                 
                 </div>
                
                 Fecha inicio:<br><input name="fechaini"  id="fechaIni" type="date"><br>         
                 Fecha limite:<br><input name="fechafin"  id="fechaLim" type="date">
               
                 <div id="alertfecha" class="alert alert-danger" role="alert">Las fechas nos son correctas</div>
-                <div id="alertfecha1" class="alert alert-danger" role="alert">No puedes dejar una fecha vacia</div>
-                <div id="alertfecha2" class="alert alert-danger" role="alert">No puedes dejar una fecha vacia</div>
+               
                
                 <input type="file" class="form-control" id="image" name="archivo" multiple> <br>  
                 <input name="publicar" type="submit" value="PUBLICAR"> 
@@ -326,47 +332,37 @@ function validacion() {
   cuerpo = document.getElementById("cuerpo").value;
   asunto = document.getElementById("asunto").value;
 
-  const alerta4 = document.getElementById("alertasunto");
-  const alerta5 = document.getElementById("alertcuerpo");
+  const alerta4 = document.getElementById("alert4");
+ 
   const alerta6 = document.getElementById("alertfecha");
-  const alerta7 = document.getElementById("alertfecha1");
-  const alerta8 = document.getElementById("alertfecha2");
 
-  if( fechaIni == null || fechaIni.length == 0 || /^\s+$/.test(fechaIni) ) {
-  alerta7.classList.add("show");
+
+  if( (fechaIni == null || fechaIni.length == 0 || /^\s+$/.test(fechaIni))||(fechaLim == null || fechaLim.length == 0 || /^\s+$/.test(fechaLim))||(cuerpo == null || cuerpo.length == 0 || /^\s+$/.test(cuerpo))||(asunto == null || asunto.length == 0 || /^\s+$/.test(asunto)) ) {
+  alerta4.classList.add("show");
   return false;
  
 }  
-if( fechaLim == null || fechaLim.length == 0 || /^\s+$/.test(fechaLim) ) {
-  alerta8.classList.add("show");
-  return false;
- 
-}  
+
   if(fechaLim < fechaIni){
     alerta6.classList.add("show");
   return false;
   }
 
-  if( cuerpo == null || cuerpo.length == 0 || /^\s+$/.test(cuerpo) ) {
-  alerta5.classList.add("show");
-  return false;
- 
-}  
-if( asunto == null || asunto.length == 0 || /^\s+$/.test(asunto) ) {
-  alerta4.classList.add("show");
-  return false;
- 
-}
+  
+
+
+
 
 }
 function validacionus() {
  
   valor = document.getElementById("nameuser").value;
   email = document.getElementById("mail").value
+  clave = document.getElementById("clave").value
   const alerta = document.getElementById("alert1");
   const alerta2 = document.getElementById("alert2");
   const alerta3 = document.getElementById("alert3");
-
+  const alerta4 = document.getElementById("alertclave");
 
 if( valor == null || valor.length == 0 || /^\s+$/.test(valor) ) {
   alerta.classList.add("show");
@@ -375,6 +371,11 @@ if( valor == null || valor.length == 0 || /^\s+$/.test(valor) ) {
 }
 if( email == null || email.length == 0 || /^\s+$/.test(email) ) {
   alerta2.classList.add("show");
+  return false;
+ 
+}
+if( clave == null || clave.length == 0 || /^\s+$/.test(clave) ) {
+  alerta4.classList.add("show");
   return false;
  
 }

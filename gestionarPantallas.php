@@ -5,6 +5,12 @@
       header('Location: index');
       exit();
   }
+  $rol=$_SESSION['rol'];
+
+  if ($rol=='1'){
+      header('Location: index');
+      exit();
+  }
 
   $login=$_SESSION['login'];
   $rol=$_SESSION['rol'];
@@ -92,6 +98,7 @@
 
           <?php 
             while($datos=$resultado->fetch_array()){
+              $idubicacion=$datos['idUbc'];
           ?>
 
           <tr>
@@ -99,8 +106,8 @@
             <td><span id="nombrePantalla"><?php echo $datos["nombrePantalla"]?></span></td>
             <td><span id="mac"><?php echo $datos["MAC"]?></span></td>
             <td><span id="ubicacion"><?php echo $datos["idUbc"]?></span></td>
-            <!-- <td><form method='post'><input type='text' name='nombre' value='<?php echo $datos["nombreUser"]?>' style='visibility:collapse; position:fixed;'><input type='submit' value='ELIMINAR' name='eliminar'></form></td>
-            <td><button style='background-color:rgba(0,61,128,255); border-color:rgba(0,61,128,255);' data-open="edit" id="btnmodal" type="button" class="btn btn-success edit" value="<?php echo $datos['idUser'];?>"><i  class="fas fa-pencil-alt"></i>  </button></td>-->
+            <td><form method='post'><input type='text' name='nombre' value='<?php echo $datos['idPantalla'];?>' style='display:none;'><button style='background-color:red; border-color:rgba(0,61,128,255);' type='submit' value='ELIMINAR' name='eliminar'  class="btn btn-success edit"><i class="fas fa-trash-alt"></i></button></form></td>
+            <td><button style='background-color:rgba(0,61,128,255); border-color:rgba(0,61,128,255);' data-open="edit" id="btnmodal" type="button" class="btn btn-success edit" value="<?php echo $datos['idUser'];?>"><i  class="fas fa-pencil-alt"></i>  </button></td>
           </tr>
 
           <?php  
@@ -109,12 +116,16 @@
 
             if (isset($_POST['eliminar'])) {
               $nombre=$_POST['nombre'];
-              $sql="DELETE from USUARIO where nombreUser='$nombre'";
+              $sql="DELETE from ASIGNAR where idPantalla='$nombre'";
+              $delete="DELETE FROM PANTALLA where idPantalla='$nombre'";
               $resultado=$connection->query($sql);
-              if($resultado){  
+              $result=$connection->query($delete);
+              if($resultado&&$result){
+                  
               }
             }
           ?>
+  
   
           <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -124,23 +135,20 @@
                   <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form action='actualizarUs.php' method='post'>
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">ID:</label>
-                      <input type="text" class="form-control" id="id" name='id'>
+                  <form action='editarPantalla.php' method='post'>
+                  <div class="mb-3">
+                      <label for="message-text" class="col-form-label">ID:</label>
+                      <input type="text" class="form-control" id="enombre" name="idPan">
                     </div>
                     <div class="mb-3">
                       <label for="message-text" class="col-form-label">Nombre:</label>
                       <input type="text" class="form-control" id="enombre" name="nombre">
                     </div>
                     <div class="mb-3">
-                      <label for="message-text" class="col-form-label">email:</label>
-                      <input type="text" class="form-control" id="eemail" name="email">
+                      <label for="message-text" class="col-form-label">mac:</label>
+                      <input type="text" class="form-control" id="mac" name="mac">
                     </div>
-                    <div class="mb-3">
-                      <label for="message-text" class="col-form-label">Clave:</label>
-                      <input type="text" class="form-control" id="eclave" name="clave">
-                    </div>
+                   
                     <input type="submit" name="guardar" value="GUARDAR">
                   </form>
                 </div>
@@ -149,6 +157,9 @@
             </div>
           </div>
         </table>
+        <?php
+        
+        //   ?>
 
         <div class="modal" id="modal1">
           <div class="modal-dialog" id='modal2'>
@@ -159,29 +170,35 @@
 
             <section class="modal-content">
               <form action='insertarPantalla.php' method='post' onsubmit="return validacion()">
-                Nombre pantalla:<br><input name="usuario" id="nameuser" type="text">
-                <div id="alert1" class="alert alert-danger" role="alert">No puedes dejar el nombre vacio!!!</div>
-                <div id="alert4" class="alert alert-danger" role="alert">el nombre tiene que ser de esta forma</div> 
+              <div id="alert3" class="alert alert-danger" role="alert">No puedes dejar elementos vacios!!</div>
+                
+                Nombre pantalla:<br><input name="nombrepantalla" id="pantalla" type="text">
+                <div id="alert1" class="alert alert-danger" role="alert">No puedes dejar el nombre vacio</div>
+                
                 <br>
                 <br>
                 Ubicación:<br>
-                <select id="selectDpto" name="selectDpto">
-                  <?php
-                   
-                   
-                  ?>
+                <select id="selectUbi" name="selectUbi">
+                <?php 
+                $ubi="select * from UBICACION";
+                $res=$connection->query($ubi);
+               while($datos=$res->fetch_array()){
+?> 
+                <option><?php echo $datos["nombreUbc"];?></option>
+          <?php
+        }
+        ?>
                 </select>
                
                 <br>
                 <br>
-                Correo electronico:<br><input name="email" type="email" id="mail">
-                <div id="alert2" class="alert alert-danger" role="alert">Se requiere el email</div>
-                <div id="alert3" class="alert alert-danger" role="alert">Este email no es valido</div>
+                MAC:<br><input name="mac" type="text" id="mac" onkeyup="validarMac( this.value )" >
+                <div id="alert2" class="alert alert-danger" role="alert">Esta mac no es valida</div>
+              
                 <br>
                 <br>
                 <input id="VALIDAR" name="crear" type="submit" value="CREAR"> 
               </form><br>
-              <p>* Se le mandara un correo con su contraseña por defecto y en su primer inicio de sesión podra cambiarla</p>
             </section>
 
             <footer class="modal-footer">...</footer>
@@ -192,33 +209,27 @@
         <script type="text/javascript">
 
           function validacion() {
-            valor = document.getElementById("nameuser").value;
-            email = document.getElementById("mail").value
-            var exp= new RegExp("[A-Z]{1}")
+            pantalla = document.getElementById("pantalla").value;
+            mac = document.getElementById("mac").value
             const alerta = document.getElementById("alert1");
-            const alerta2 = document.getElementById("alert2");
-            const alerta3 = document.getElementById("alert3");
-            const alerta4 = document.getElementById("alert4");
-            if( valor == null || valor.length == 0 || /^\s+$/.test(valor) ) {
-              alerta.classList.add("show");
-              return false;
-            }
-            if( email == null || email.length == 0 || /^\s+$/.test(email) ) {
-              alerta2.classList.add("show");
-              return false;
-            }
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/.test(email)){
-              alerta3.classList.add("show");
-              return false;
-            }
-            if (exp.test(valor)){
-            
-            }else{
-              alerta4.classList.add("show");
-              return false;
-            }
-          }
+  const alerta2 = document.getElementById("alert2");
+  const alerta3 = document.getElementById("alert3");
 
+if( (mac == null || mac.length == 0 || /^\s+$/.test(mac))&&( pantalla == null || pantalla.length == 0 || /^\s+$/.test(pantalla) ) ) {
+  alerta3.classList.add("show");
+  return false;
+}
+
+
+        }
+//         function validarMac( valor ) {
+//         let regex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
+// if(regex.test(mac)){
+ 
+// }else{
+//  alert('mac no correcta');
+// }
+// }
           const openEls = document.querySelectorAll("[data-open]");
           const closeEls = document.querySelectorAll("[data-close]");
           const isVisible = "is-visible";

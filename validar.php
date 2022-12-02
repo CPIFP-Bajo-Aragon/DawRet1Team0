@@ -81,13 +81,18 @@
             <?php
                 require_once 'Base.php';
                 //DataBase connect (Select of certain fields)  
-                $query="SELECT tituloPublic, mensajePublic,fechaInicio,fechaLimite,nombreUser,archivo from PUBLICACION P, USUARIO U where U.idUser=P.idUser and validada='0'";
+                $query="SELECT idPublic,tituloPublic, mensajePublic,fechaInicio,fechaLimite,nombreUser,archivo from PUBLICACION P, USUARIO U where U.idUser=P.idUser and validada='0'";
                 $resultado=$connection->query($query);
                 $num = $resultado->num_rows;
                         
-                if ($resultado) {
+
+
+      
+                if ($num>0) {
                     /* fetch associative array */
                     while ($row = $resultado->fetch_assoc()) {
+                      
+                        $idpublic=$row['idPublic'];
                         $field2name = $row["tituloPublic"];
                         $field3name = $row["mensajePublic"];
                         $fechainicio = $row['fechaInicio'];
@@ -108,17 +113,20 @@
                         echo "<div id='botonesV'>";
 
                         //Button validate news
-                        echo "<form action='asignar.php' method='post'><select id='invisible'name='select' value='seleccione noticia' required></option>
-                                <option name='opcion' selected>$field2name</option><input id='VALIDAR' type='submit' name='VALIDAR' value='ASIGNAR A PANTALLA'>
-                                <select id='invisible'name='select' value='seleccione noticia' required>
-                                <option name='opcion' selected>$field2name</option>
+                        echo "<form action='asignar.php' method='post'><input type='text' value='$idpublic' name='id'  style='visibility:collapse; position:fixed;'><input id='VALIDAR' type='submit' name='VALIDAR' value='ASIGNAR A PANTALLA'></form>
+                              <form method='post' action='denegar.php'>
+                              <input type='text' value='$idpublic' name='id'  style='visibility:collapse; position:fixed;'>
                                 <input type='submit' id='DENEGAR'  value='DENEGAR' name='DENEGAR'>
-                                <input type='text' name='motivo' style='display:none; text-align:center;' id='motivo' placeholder='escriba aqui el motivo'>
+                              
                             </form>
                         <br>";
                         echo "</div>"; 
                     }    
+                }else{
+                    echo "<script languaje='javascript'>alert('No hay noticias pendientes de validar');</script>";
+                    
                 }
+            
 
                 // if (isset($_POST['VALIDAR'])) {
                 //     $titulo=$_POST['select'];
@@ -130,16 +138,16 @@
                 //     }     
                 // }
 
-                if (isset($_POST['DENEGAR'])) {   
-                    $motivo="motivogenerico";
-                    $titulo=$_POST['select'];
-                    $fecha=date('y-m-d');
-                    //DataBase connect (Update fields when validad=1)  
-                    $sql="UPDATE PUBLICACION SET validada='-1',fechaAutorizacion='$fecha',motivoDenegacion='$motivo' where tituloPublic like '$titulo'";
-                    $resultado1=$connection->query($sql);   
-                    if($resultado1){
-                    }
-                }
+                // if (isset($_POST['DENEGAR'])) {   
+                //     $motivo="motivogenerico";
+                //     $titulo=$_POST['select'];
+                //     $fecha=date('y-m-d');
+                //     //DataBase connect (Update fields when validad=1)  
+                //     $sql="UPDATE PUBLICACION SET validada='-1',fechaAutorizacion='$fecha',motivoDenegacion='$motivo' where tituloPublic like '$titulo'";
+                //     $resultado1=$connection->query($sql);   
+                //     if($resultado1){
+                //     }
+                // }
             ?>
                     
             <script type='text/javascript'>

@@ -49,11 +49,11 @@
     
     <main>
         <div class="titulo">
-            <h1>MIS NOTICIAS</h1>
+            <h1>MIS NOTICIAS VALIDADAS</h1>
         </div>
         <div id="containerValidar">
             <br>
-            <h1 style="text-align:center;">MIS NOTICIAS VALIDADAS</h1> 
+            
             <br>
             <br>
             <?php
@@ -61,9 +61,13 @@
                 //DataBase connection
                 $query="SELECT tituloPublic, mensajePublic,fechaLimite,nombreUser,archivo, fechaAutorizacion from PUBLICACION P, USUARIO U where U.idUser=P.idUser and validada='1' and nombreUser='$nombre'";
                 $resultado=$connection->query($query);
-                if (!$resultado) {
-                    echo "hola";
-                }else{
+                $num = $resultado->num_rows;
+                        
+
+
+      
+                if ($num>0) {
+              
                     while ($row = $resultado->fetch_assoc()) {   
                         $field2name = $row["tituloPublic"];
                         $field3name = $row["mensajePublic"];
@@ -89,6 +93,8 @@
                         echo "</div>";  
                     }
                     $resultado->free();
+                }else{
+                    echo 'No tienes noticias validadas';
                 }
             ?>
         </div>

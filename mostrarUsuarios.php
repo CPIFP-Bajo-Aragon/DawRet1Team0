@@ -5,6 +5,12 @@
       header('Location: index');
       exit();
   }
+  $rol=$_SESSION['rol'];
+
+  if ($rol=='1'){
+      header('Location: index');
+      exit();
+  }
       // echo '<script language="javascript">alert("sesion iniciada correctamente");</script>';
                     
 
@@ -89,7 +95,9 @@ Inicio
     <?php
          require_once 'Base.php';
          $query="SELECT idUser,nombreUser,email,claveUser,nombreDpto,nombreRol from USUARIO U, DEPARTAMENTO D, ROL R where R.idRol = U.rol and D.idDpto=U.idDpto ";
+         
          $resultado=$connection->query($query);
+        
     ?>
        
             <table>
@@ -100,6 +108,7 @@ Inicio
                 <th>CLAVE</th>
                 <th>ROL</th>
                 <th>DEPARTAMENTO</th>
+                <th></th>
                 <th></th>
                 <th></th>
               </tr>
@@ -115,8 +124,10 @@ Inicio
                     <td><span id="nombreRol"><?php echo $datos["nombreRol"]?></span></td>
                     <td><span id="nombreDpto<?php echo$datos['idUser'];?>"><?php echo $datos["nombreDpto"]?></span></td>
                     <td><form method='post'><input type='text' name='nombre' value='<?php echo $datos["nombreUser"]?>' style='visibility:collapse; position:fixed;'><button style='background-color:red; border-color:rgba(0,61,128,255);' type='submit' value='ELIMINAR' name='eliminar'  class="btn btn-success edit"><i class="fas fa-trash-alt"></i></button></form></td>
-                    <td><button style='background-color:rgba(0,61,128,255); border-color:rgba(0,61,128,255);' name="editar" data-open="edit" id="btnmodal"  class="btn btn-success edit" ><i class="fa fa-pencil"></i></button></td>
-                </tr>
+                    <td><button id='show' style='background-color:rgba(0,61,128,255); border-color:rgba(0,61,128,255);' name="editar" data-open="edit" class="btn btn-success edit" ><i class="fa fa-pencil"></i></button></td>
+                    <td><form method='post' action='editarUs.php'><input type='text' name='nombre' value='<?php echo $datos["nombreUser"]?>' style='visibility:collapse; position:fixed;'><button style='background-color:rgba(0,61,128,255); border-color:rgba(0,61,128,255);' type='submit' value='ELIMINAR' name='eliminar'  class="btn btn-success edit"><i class="fa-solid fa-user-pen"></i></button></form></td>
+                    
+                  </tr>
                 <?php   
         }
         if (isset($_POST['eliminar'])) {
@@ -124,6 +135,7 @@ Inicio
             $sql="delete from USUARIO where nombreUser='$nombre'";
             $resultado=$connection->query($sql);
            if($resultado){
+            
         
 
 
@@ -206,12 +218,12 @@ Inicio
                <br>
                 Departamento:<br>
                 <select id="selectDpto" name="selectDpto">
-                  <option>informatica</option>
-                  <option>electricidad</option>
-                  <option>sanidad</option>
-                  <option>administrativo</option>
-                  <option>automocion</option>
-                  <option>secretaria</option>    
+                  <option>Informática</option>
+                  <option>Electricidad</option>
+                  <option>Sanidad</option>
+                  <option>Administrativo</option>
+                  <option>Automoción</option>
+                  <option>Secretaría</option>    
                 </select>
                 <br>
                 <br>
@@ -221,15 +233,16 @@ Inicio
                 </select>
                 <br>
                 <br>
-                Correo electronico:<br><input name="email" type="email" id="mail">
+                Correo electronico:<br><input name="email" type="email" id="mail"><br>
                 <div id="alert2" class="alert alert-danger" role="alert">Se requiere el email</div>
                 <div id="alert3" class="alert alert-danger" role="alert">Este email no es valido</div>
-               
+                Contraseña:<br><input type='password' name='clave' id='clave'>
+                <div id="alertclave" class="alert alert-danger" role="alert">Se requiere clave!!</div>
                 <br>
                 <br>
-                <input id="VALIDAR" name="crear" type="submit" value="CREAR"> 
+                <input class='btn btn-success edit' name="crear" type="submit" value="CREAR"> 
               </form><br>
-        <p>* Se le mandara un correo con su contraseña por defecto y en su primer inicio de sesión podra cambiarla</p>
+      
        
  
     </section>
@@ -245,12 +258,18 @@ Inicio
 function validacion() {
   valor = document.getElementById("nameuser").value;
   email = document.getElementById("mail").value
-  
+  clave = document.getElementById("clave").value
   const alerta = document.getElementById("alert1");
   const alerta2 = document.getElementById("alert2");
   const alerta3 = document.getElementById("alert3");
   const alerta4 = document.getElementById("alert4");
+  const alerta5 = document.getElementById("alertclave");
 if( valor == null || valor.length == 0 || /^\s+$/.test(valor) ) {
+  alerta.classList.add("show");
+  return false;
+ 
+}
+if( clave == null || clave.length == 0 || /^\s+$/.test(clave) ) {
   alerta.classList.add("show");
   return false;
  

@@ -54,16 +54,19 @@
             <h1>MIS DENEGADAS</h1>
         </div>
         <div id="containerValidar">
-            <h1 style="text-align:center;">MIS NOTICIAS DENEGADAS</h1> 
+           
             <br>
             <?php
                 require_once 'Base.php';
                 //DataBase connection     
                 $query="SELECT tituloPublic, mensajePublic,fechaLimite,nombreUser,archivo, fechaAutorizacion, motivoDenegacion from PUBLICACION P, USUARIO U where U.idUser=P.idUser and validada='-1' and nombreUser='$nombre'";
                 $resultado=$connection->query($query);
-                if (!$resultado) {
-                    echo "hola";
-                }else{
+                $num = $resultado->num_rows;
+                        
+
+
+      
+                if ($num>0) {
                     while ($row = $resultado->fetch_assoc()) { 
                         $field2name = $row["tituloPublic"];
                         $field3name = $row["mensajePublic"];
@@ -82,12 +85,13 @@
                         echo "<p>Motivo denegación: ".$motivo."</p>";
                             
                         //To view the news individually
-                            echo "<form action='editar' method='post'><select id='invisible'name='select' value='seleccione noticia' required></option>
-                            <option name='opcion' selected>$field2name</option><input id='VALIDAR' type='submit' name='MAS' value='EDITAR'></form>
+                            echo "<form action='editarmis' method='post'><input type='text' name='nombre' value='$field2name' id='invisible'><input id='VALIDAR' type='submit' name='MAS' value='EDITAR'></form>
                             <br>";
                            echo "</div>";
                     }
                     $resultado->free();
+                }else{
+                    echo "no tienes noticias denegadas";
                 }
             ?>
         </div>

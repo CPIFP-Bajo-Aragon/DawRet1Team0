@@ -1,0 +1,6 @@
+{
+    "name": "root/pdf_to_image",
+    "require": {
+        "spatie/pdf-to-image": "^2.2"
+    }
+}

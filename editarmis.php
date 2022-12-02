@@ -7,12 +7,8 @@
   } else {
       // Show users the page!
   }
-  $rol=$_SESSION['rol'];
-
-  if ($rol=='1'){
-      header('Location: index');
-      exit();
-  }
+  
+ 
   $nombre=$_SESSION['nombre'];
   $login=$_SESSION['login'];
 ?>
@@ -50,7 +46,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                             <a class="nav-link" aria-current="page" href="gestionarPublicaciones" data-bs-toggle="modal" data-open='modal1'>
+                             <a class="nav-link" aria-current="page" href="misdenegadas" data-bs-toggle="modal" data-open='modal1'>
                              <i class="fa fa-sign-in"></i>
                             
                                 </i>
@@ -74,10 +70,9 @@
  
           <br>
           <?php
-           
             require_once 'Base.php';
             $public=$_POST['nombre'];
-            $query="select idPublic, tituloPublic, mensajePublic,fechaInicio, fechaLimite, archivo,motivoDenegacion from PUBLICACION P, USUARIO U where U.idUser=P.idUser and idPublic='$public'";
+            $query="select idPublic, tituloPublic, mensajePublic,fechaInicio, fechaLimite, archivo,motivoDenegacion from PUBLICACION P, USUARIO U where U.idUser=P.idUser and tituloPublic='$public'";
             $resultado=$connection->query($query);
             if ($resultado) {
             
@@ -89,8 +84,8 @@
                 $fechaLim = $row['fechaLimite'];
                 $motivo=$row['motivoDenegacion'];
               
-                echo "<form ENCTYPE='multipart/form-data' action='editar' method='post'>";
-            
+                echo "<form ENCTYPE='multipart/form-data'  method='post'>";
+               echo "<p>Motivo denagacion: $motivo</p>";
                 echo "<p>Titulo:</p>";
                 echo "<input type='text' name='titulo' value='$titulo' required>";
                 echo "<p>Titulo:</p>";
@@ -112,10 +107,10 @@
               $noticia=$_POST['id'];
               $fechai=$_POST['fechaini'];
               $fechal=$_POST['fechalim'];
-              $sql="UPDATE PUBLICACION SET tituloPublic='$titulo',mensajePublic='$cuerpo', fechaInicio='$fechai', fechaLimite='$fechal' where idPublic = '$noticia'";
+              $sql="UPDATE PUBLICACION SET tituloPublic='$titulo',mensajePublic='$cuerpo', fechaInicio='$fechai', fechaLimite='$fechal', validada='0' where idPublic = '$noticia'";
               $resultado1=$connection->query($sql);
               if($resultado1){
-                  header('Location:gestionarPublicaciones');
+                  header('Location:misdenegadas');
               }
             }
           ?>

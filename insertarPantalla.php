@@ -8,39 +8,37 @@
     } else {
         // Show users the page
     }  
+    $rol=$_SESSION['rol'];
+
+    if ($rol=='1'){
+        header('Location: index');
+        exit();
+    }
   
     require_once 'Base.php';
 
-    $nombre = $_POST['usuario'];
-    $departamento = $_POST['selectDpto'];
-    $email = $_POST['email'];
-    $clave = "clavegenerica";
-    $rol = $_POST['rol'];
+    $nombre = $_POST['nombrepantalla'];
+    $ubicacion = $_POST['selectUbi'];
+    $mac = $_POST['mac'];
+  
 
-    echo $departamento;
+   
 
-    $sql="SELECT idDpto from DEPARTAMENTO where nombreDpto = '$departamento'";
+    $sql="SELECT idUbc from UBICACION where nombreUbc = '$ubicacion'";
     $resultado1=$connection->query($sql);
     if ($resultado1) {
         while ($row = $resultado1->fetch_assoc()) {
-            $idDpto = $row['idDpto'];
+            $idUbc = $row['idUbc'];
         }
+        
     }
 
-    echo $idDpto;
-    $sql="select idRol from ROL where nombreRol='$rol'";
-    $resultado1=$connection->query($sql);
-    if ($resultado1) {
-        while ($row = $resultado1->fetch_assoc()) {
-            $idRol = $row['idRol'];
-        }
-    }
-
+   
     //To Encrypt:
-    $hash = sha1($clave);
+  
 
     //DataBase connection
-    $query="INSERT into USUARIO (nombreUser, claveUser, idDpto, email, rol) values ('$nombre','$hash','$idDpto','$email','$idRol')";
+    $query="INSERT into PANTALLA (nombrePantalla, MAC, idUbc) values ('$nombre','$mac','$idUbc')";
     $resultado=$connection->query($query);
     if($resultado){
         header("Location: URL");
@@ -48,7 +46,7 @@
 
     if($resultado){
         echo '<script type="text/javascript">alert("Usuario creado")</script>';
-        header("Location: mostrarUsuarios");
+        header("Location: gestionarPantallas");
         exit();
     }else{
         echo "No se pudo crear";

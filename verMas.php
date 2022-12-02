@@ -9,6 +9,12 @@ require_once 'Base.php';
     } else {
         
     }
+    $rol=$_SESSION['rol'];
+
+    if ($rol=='1'){
+        header('Location: index');
+        exit();
+    }
     $login=$_SESSION['login'];
     $rol=$_SESSION['rol'];
     $nombre=$_SESSION['nombre'];
@@ -46,15 +52,7 @@ require_once 'Base.php';
                                 Inicio
                             </a>
                         </li>
-                        <li class="nav-item">
-                             <a class="nav-link" aria-current="page" href="historico" data-bs-toggle="modal" data-open='modal1'>
-                             <i class="fa fa-sign-in"></i>
-                            
-                                </i>
-                                Atras
-                                                                  
-                            </a>
-                        </li>
+            
                     </ul>
                 </div>
                 <p><?php echo "Hola ".$nombre?> </p>    

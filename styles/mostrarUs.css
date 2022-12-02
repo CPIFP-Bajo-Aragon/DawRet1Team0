@@ -116,6 +116,7 @@ ul, ol {
     right:-140px;
     top:0px;
 }
+
 a{
     text-decoration: none;
     
@@ -123,14 +124,13 @@ a{
 
 
 a #listaus{
- text-decoration: none;
- color: #fff;
- background-color: #000;
-padding: 2%;
-
- list-style: none;
-
+  text-decoration: none;
+  color: #fff;
+  background-color: #000;
+  padding: 2%;
+  list-style: none;
 }
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -472,6 +472,3 @@ table {
   font-size: 200px;
   color: black;
 }
- 
- 
- 

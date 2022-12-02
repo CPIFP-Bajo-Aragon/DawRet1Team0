@@ -75,86 +75,92 @@
 
     <main>
         <div class="titulo">
-            <h1>VALIDAR</h1>
+            <h1>ASIGNAR</h1>
         </div>
         <div id="containerValidar">
             <?php
                 require_once 'Base.php';
                 //DataBase connect (Select of certain fields)
                 //pasar en vezdel titulo la id de la publicacion
-                $titulo=$_POST['select'];
-                $query="SELECT idPublic, tituloPublic, mensajePublic,fechaInicio,fechaLimite,nombreUser,archivo from PUBLICACION P, USUARIO U where U.idUser=P.idUser and tituloPublic='$titulo'";
+                
+                $titulo=$_POST['id'];
+                $query="SELECT idPublic, tituloPublic, mensajePublic,fechaInicio,fechaLimite,nombreUser,archivo from PUBLICACION P, USUARIO U where U.idUser=P.idUser and idPublic='$titulo'";
                 $resultado=$connection->query($query);
                 $num = $resultado->num_rows;
-                        
+                     
                 if ($resultado) {
                     /* fetch associative array */
                     while ($row = $resultado->fetch_assoc()) {
-                        $idPublic=$row['idPublic'];
+                        
                         $field2name = $row["tituloPublic"];
                         $field3name = $row["mensajePublic"];
-                        $fechainicio = $row['fechaInicio'];
-                        $field5name = $row['fechaLimite'];
-                        $field6name = $row['nombreUser'];
-                        $field7name = $row['archivo'];
-                    }}
-                                
-                //         echo "<h1>".$field2name."</h1><br>";
-                //         echo "<span class='underline center'></span>";
-                //         echo "<p>".$field3name."</p><br>";
-                //         echo "<p> fecha publicación: ".$fechainicio."</p><br>";
-                //         echo "<p> fecha limite: ".$field5name."</p><br>";
-                //         echo "<p> escrita por ".$field6name."</p><br>";
-                        
-                //         if($field7name!=""){
-                //             echo "<img id='foto' src='imagenesNoticias/$field7name'>";
-                //         }
-                //         echo "<div id='botonesV'>";
-
-                //         //Button validate news
+                  
+                    }
                       
-                //     }    
-                // }
+                    echo "<h1>".$field2name."</h1><br>";
+                      
+                    echo "<p>".$field3name."</p><br>";
+                }
+                          
+                      
+                       
+                
 
 
          ?>
          <p>Pantallas a asignar:</p>
          <form method='post'>
+            
                 <?php
+                $idpublic=$_POST['id'];
+               
                     $sql="select nombrePantalla from PANTALLA";
                     $result=$connection->query($sql);
                     if($result){
                         while ($row = $result->fetch_assoc()) {
                             $pantallanombre=$row['nombrePantalla'];
-                            echo "<input name='pantalla' type='checkbox' value='$pantallanombre'>$pantallanombre<br>";
+                            echo "<input class='form-check-input' name='pantalla' type='checkbox' value='$pantallanombre'>$pantallanombre<br>";
+               
                             
                     }
 
                 }
                 ?>
+                <input type='text' value='<?php echo $idpublic;?>' name='public'  style='visibility:collapse; position:fixed;'>
                 <input type='submit' value='ASIGNAR' name='asignar'>
 
 
          </form>
          <?php
          if (isset($_POST['asignar'])) {
+                    $public=$_POST['public'];
                     $pantalla=$_POST['pantalla'];
-                    echo $pantalla;
+                    // echo $pantalla;
                    $sql2="select idPantalla from PANTALLA where nombrePantalla='$pantalla'";
                    $result1=$connection->query($sql2);
                    if($result1){
                     while ($row = $result1->fetch_assoc()) {
                         $idPan=$row['idPantalla'];
+                        
+                       
                    }
                   
                 }
-                $sql3="INSERT into ASIGNAR (idPantalla, idPublic) values ('$idPan','$idPublic') ";
-                $result2=$connection->query($sql3);
-                if($result2){
-                 echo "publicacion asignada a pantalla correctamente";
-            }else{
-                echo "no se ha podido asignar";
-            }
+           
+                $fecha=date('y-m-d');
+               
+                // foreach ($pantalla as $pan) {
+                    $sql3="INSERT into ASIGNAR (idPantalla, idPublic) values ('$idPan','$public')";
+                    $update="UPDATE PUBLICACION SET validada='1',fechaAutorizacion='$fecha', motivoDenegacion=null where idPublic like '$public'";
+                    $result2=$connection->query($sql3);
+                    $result3=$connection->query($update);
+                // }
+
+                
+                if($result2&&$result3){
+                    header("Location: menu");
+                }
+               
         }
 ?>
             <br><br><br> 

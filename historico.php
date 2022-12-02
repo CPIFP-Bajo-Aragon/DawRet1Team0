@@ -52,13 +52,13 @@
 
     <main>
         <div class="titulo">
-            <h1>HISTORICO</h1>
+            <h1>HISTÓRICO</h1>
         </div>
         <div id="container">
             <?php
                 // DataBase connection
                 require_once 'Base.php';
-                $query="SELECT tituloPublic, mensajePublic,fechaInicio,fechaLimite,nombreUser, fechaAutorizacion from PUBLICACION P, USUARIO U where U.idUser=P.idUser";
+                $query="SELECT idPublic,tituloPublic, mensajePublic,fechaInicio,fechaLimite,nombreUser,fechaAutorizacion,validada from PUBLICACION P, USUARIO U where P.idUser=U.idUser";
                 $resultado=$connection->query($query);
             ?>
     
@@ -66,9 +66,12 @@
                 <tr>
                     <th>TITULO</th>
                     <th>MENSAJE</th>
-                    <th>FECHA INICIO</th>
+                    <th>FECHA INICIO
+                        <button id='ordenar' type='button' name='ordenar' value='ordenar por fecha' onclick='ordenaras()'><img id='flechas' src='img/flechas.png'></button>
+                    </th>
                     <th>FECHA LIMITE</th>
                     <th>PUBLICADOR</th>
+                    <th>ESTADO</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -76,6 +79,8 @@
                 <?php 
                     while($datos=$resultado->fetch_array()){
                         $tituloNo=$datos['tituloPublic'];
+                        $public=$datos['idPublic'];
+
                 ?>
 
                 <tr>
@@ -84,17 +89,20 @@
                     <td><?php echo $datos["fechaInicio"]?></td>
                     <td><?php echo $datos["fechaLimite"]?></td>
                     <td><?php echo $datos["nombreUser"]?></td>
-                    <td><form action="verNot" method="post"><input type='text' name='titulo' value='<?php echo $datos["tituloPublic"]?>' style='visibility:collapse; position:fixed;'><button  style='background-color:rgba(0,61,128,255); border-color:rgba(0,61,128,255);' type="submit" class="btn btn-success edit">VER</button></td>
-                    <td><form method='post'><input type='text' name='nombre' value='<?php echo $datos["tituloPublic"]?>' style='visibility:collapse; position:fixed;'><button style='background-color:red; border-color:rgba(0,61,128,255);' type='submit' value='ELIMINAR' name='eliminar'  class="btn btn-success edit"><i class="fas fa-trash-alt"></i></button></form></td>
-                </tr>
+                    <td><?php echo $datos["validada"]?></td>
+                    <td><form action="verNot" method="post"><input type='text' name='titulo' value='<?php echo $datos["tituloPublic"]?>' style='visibility:collapse; position:fixed;'><button  style='background-color:rgba(0,61,128,255); border-color:rgba(0,61,128,255);' type="submit" class="btn btn-success edit">VER</button></form></td>
+                    <td><form method='post'><input type='text' name='nombre' value='<?php echo $public;?>'  style='visibility:collapse; position:fixed;'><button style='background-color:red; border-color:rgba(0,61,128,255);' type='submit' value='ELIMINAR' name='eliminar'  class="btn btn-success edit"><i class="fas fa-trash-alt"></i></button></form></td>
             
                 <?php   
                     }
                     if (isset($_POST['eliminar'])) {
-                        $nombre=$_POST['nombre'];
-                        $sql="DELETE from PUBLICACION where tituloPublic='$nombre'";
+                        $public=$_POST['nombre'];
+                        $sql="DELETE from ASIGNAR where idPublic='$public'";
+                        $delete="DELETE FROM PUBLICACION where idPublic='$public'";
                         $resultado=$connection->query($sql);
-                        if($resultado){
+                        $result=$connection->query($delete);
+                        if($resultado&&$result){
+                            
                         }
                     }
                 ?> 

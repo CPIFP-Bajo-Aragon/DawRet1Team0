@@ -16,7 +16,7 @@
           $mid .= $lines[$i].":";
         }
        
-        $mac = $first.$mid.$last;
+       $mac = $first.$mid.$last;
         
         $query = "SELECT PU.*, PA.idPantalla, PA.MAC FROM PUBLICACION PU, ASIGNAR A, PANTALLA PA where PU.idPublic = A.idPublic and A.idPantalla = PA.idPantalla and PU.validada = 1 and PA.MAC='$mac' ORDER BY PU.idPublic DESC";
 
@@ -60,7 +60,6 @@
                         <div class="message">
                             <h3>'.$row["tituloPublic"].'</h3>
                             <p>'.$row["mensajePublic"].'</p>
-                            <p>'.$row["MAC"].'</p>
                             <img src="imagenesNoticias/'.$row["archivo"].'"/>
                         </div>
                         </div>';
@@ -69,7 +68,6 @@
                         <div class="message">
                         <h3>'.$row["tituloPublic"].'</h3>
                         <p>'.$row["mensajePublic"].'</p>
-                        <p>'.$row["MAC"].'</p>
                         </div>
                         </div>    ';
                     }

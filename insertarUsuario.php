@@ -15,7 +15,7 @@
     $nombre = $_POST['usuario'];
     $departamento = $_POST['selectDpto'];
     $email = $_POST['email'];
-    $clave = "clavegenerica";
+    $clave = $_POST['clave'];
     $rol = $_POST['rol'];
 
     echo $departamento;
