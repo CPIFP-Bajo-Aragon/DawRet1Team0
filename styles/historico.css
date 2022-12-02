@@ -26,6 +26,8 @@
         font-weight: bold;
     }
     
+
+    
     
     
     /* === BASE HEADING === */ 
@@ -150,7 +152,7 @@
       }
     
   
- #containerValidar {
+ /* #containerValidar {
     width: 60%;
     margin: auto;
     background: white;
@@ -163,14 +165,46 @@
     position: sticky;
     justify-content: center;
     /* align-items: center; */
-    text-align: center;
+    /*text-align: center;
      margin-top: 50px; 
     height: max-content;
-    background: rgba(255, 255, 255, 0.822);
+    background: rgba(255, 255, 255, 0.822);*/
     /*
     column-count: 3;
-    column-width: 30%;  */
+    column-width: 30%;  
+}*/
+
+    
+#container {
+    
+    margin: auto; 
+    padding: 10px;
+    min-height: 50vh;
+    border: 5px solid black;
+    background: rgba(255, 255, 255, 0.822);
+    text-align: center;
+  width: 100%;
+    /* display: flex;
+    flex-direction: column; */
 }
+
+:root {
+    --lightgray: #efefef;
+    --blue: steelblue;
+    --white: #fff;
+    --black: rgba(0, 0, 0, 0.8);
+    --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
+  }
+
+  button {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: inherit;
+    color: #000;
+  }
+
 #flechas{
     width: 15px;
 }
@@ -194,3 +228,89 @@ dialog button{
     color:#ffffff;
 
 }
+
+.alert{
+    opacity: 0;
+    transition: opacity 0.5s;
+    
+    display: none;
+    }
+    .show{
+    opacity: 1;
+    display: block;
+    } */
+    
+   
+   
+   
+   .container{
+    min-height: 70vh;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    
+    }
+    
+    .message{
+    text-align: center;
+    min-height: 70vh;
+    
+    }
+    
+    .message img{
+    width: 400px;
+    max-width: 400px;
+    
+    }
+    
+    .container .carousel-control{
+    bottom: 8vh;
+    
+    }
+    
+    .carousel-control span{
+    color: black;
+    visibility: hidden;
+    }
+    
+    .carousel-control:hover span{
+    color: black;
+    visibility: visible;
+    }
+    
+    .carousel-indicators li{
+    background-color: orangered;
+    border: 1px solid black;
+    height: 15px;
+    width: 15px;
+    }
+    
+    .carousel-indicators .active{
+    background-color: rgb(123, 255, 0);
+    border: 1px solid black;
+    height: 15px;
+    width: 15px;
+    }
+    
+    .container h3{
+    font-size: 50px;
+    }
+    
+    .container p{
+    font-size: 25px;
+    }
+    
+    .navbar-brand{
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    }
+    
+    #clock{
+    border: 1px solid black;
+    background-color: white;
+    left: 25%;
+    position: absolute;
+    top: 35%;
+    font-size: 200px;
+    color: black;
+    }

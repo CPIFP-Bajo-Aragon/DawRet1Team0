@@ -77,7 +77,7 @@
         <div class="titulo">
             <h1>VALIDAR</h1>
         </div>
-        <div id="containerValidar">
+       
             <?php
                 require_once 'Base.php';
                 //DataBase connect (Select of certain fields)  
@@ -99,7 +99,7 @@
                         $field5name = $row['fechaLimite'];
                         $field6name = $row['nombreUser'];
                         $field7name = $row['archivo'];
-                                
+                        echo  '<div id="containerValidar">';
                         echo "<h1>".$field2name."</h1><br>";
                         echo "<span class='underline center'></span>";
                         echo "<p>".$field3name."</p><br>";
@@ -120,7 +120,8 @@
                               
                             </form>
                         <br>";
-                        echo "</div>"; 
+                        echo "</div></div>"; 
+
                     }    
                 }else{
                     echo "<script languaje='javascript'>alert('No hay noticias pendientes de validar');</script>";

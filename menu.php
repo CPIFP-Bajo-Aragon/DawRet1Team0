@@ -149,16 +149,16 @@
               <div>MOSTRAR TODAS<br><i class='fa fa-newspaper'></i></div>
               </a>
               <a  id='xxx' href='gestionarpublicaciones'>
-              <div>GESTIONAR<br><i class='fa-solid fa-book'></i></div>
+              <div>GESTIONAR PUBLICACIONES<br><i class='fa-solid fa-book'></i></div>
               </a>
               <a id='xxx' href='mostrarUsuarios'>
               <div>USUARIOS<br><i  class='fa fa-user'></i></div>
               </a>
               <a id='xxx' href='gestionarPantallas'>
-              <div>PANTALLAS<br><i  class='fa fa-tv'></i></div>
+              <div>GESTIONAR PANTALLAS<br><i  class='fa fa-tv'></i></div>
               </a>
               <a id='xxx' href='historico'>
-              <div>HISTÓRICO<br><i  class='fa-brands fa-dropbox'></i></div>
+              <div>HISTÓRICO NOTICIAS<br><i  class='fa-brands fa-dropbox'></i></div>
               </a>
 
             ";

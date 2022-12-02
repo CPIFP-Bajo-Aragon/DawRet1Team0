@@ -307,11 +307,17 @@ i:nth-child(2),i:nth-child(3){
 }
 #xxx{
   background-color: white ;
-  width: 200px;
+  width: 30vh;
+  height: 20vh;
   padding: 2%;
   border: grey 1px solid;
   border-radius: 1.5em;
 }
+
+#xxx div{
+  margin-top: 4vh;
+}
+
 #xxx1{
   background-color: white ;
   width: 200px;

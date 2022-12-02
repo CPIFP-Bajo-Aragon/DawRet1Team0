@@ -17,8 +17,8 @@
         }
        
        $mac = $first.$mid.$last;
-        
-        $query = "SELECT PU.*, PA.idPantalla, PA.MAC FROM PUBLICACION PU, ASIGNAR A, PANTALLA PA where PU.idPublic = A.idPublic and A.idPantalla = PA.idPantalla and PU.validada = 1 and PA.MAC='$mac' ORDER BY PU.idPublic DESC";
+       $fecha=date('y-m-d');
+        $query = "SELECT PU.*, PA.idPantalla, PA.MAC FROM PUBLICACION PU, ASIGNAR A, PANTALLA PA where PU.idPublic = A.idPublic and A.idPantalla = PA.idPantalla and PU.validada = 1 and PA.MAC='$mac' and fechaInicio<='$fecha' and fechaLimite<='$fecha') ORDER BY PU.idPublic DESC";
 
         $result = mysqli_query($connect, $query);
         // print_r(mysqli_fetch_array($result));

@@ -23,13 +23,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://getbootstrap.com/docs/5.0/assets/js/docs.min.js" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.0/assets/js/docs.min.js" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestionar Publicaciones Prueba</title>
+    <title>Gestionar Publicaciones</title>
     <link rel="stylesheet" type="text/css" href="styles/gestionarPublicaciones.css"> 
     <!-- <link rel="stylesheet" href="styles/historico.css"> -->
 
@@ -137,56 +137,7 @@
             ?> 
   
 
-  <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar usuario</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"></button>
-   
-      </div>
-      <div class="modal-body">
-        <form id="editarUsuario" action='actualizarUs.php' method='post'>
-          <?php
-           
-         $sql="SELECT idUser,nombreUser,email,claveUser,nombreDpto,nombreRol from USUARIO U, DEPARTAMENTO D, ROL R where R.idRol = U.rol and D.idDpto=U.idDpto and nombreUser='$nombre'";
-                 $result=$connection->query($sql);
-                while($datos=$result->fetch_array()){
-                  $nombreUser=$datos['nombreUser'];
-                  $idUser=$datos['idUser'];
-           }
-           
-                 
-                ?>
-          
-          <div class="mb-3" >
-             <label for="recipient-name" class="col-form-label">ID:</label>
-            <input type="text" class="form-control" id="eid" name='id' value=""> 
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Nombre:</label>
-            <input type="text" class="form-control" id="enombre" name="nombre" value="">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">email:</label>
-            <input type="text" class="form-control" id="eemail" name="email">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Clave:</label>
-            <input type="text" class="form-control" id="eclave" name="clave">
-          </div>
-      <?php
-                 
-      ?>
-          <input type="submit" name="guardar" value="GUARDAR"> 
-        </form>
-      </div>
-      <div class="modal-footer">
-       
-      </div>
-    </div>
-  </div>
-</div>
+  <!--  -->
     
 
 
