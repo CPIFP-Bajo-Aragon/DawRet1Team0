@@ -1,0 +1,105 @@
+
+
+/* GENERAL */
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Muli',sans-serif;
+}
+body {
+    background-color: black;
+}
+
+h1 {
+    letter-spacing: 1.5vw;
+    font-family: 'system-ui';
+    text-transform: uppercase;
+    text-align: center;
+}
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background: url(../img/alcachofas.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+/* FORMULARIO */
+
+.form_class {
+    width: 500px;
+    padding: 40px;
+    border-radius: 8px;
+    background-color: white;
+    font-family: 'system-ui';
+    box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+}
+.form_div {
+    text-transform: uppercase;
+    border: 5px solid black;
+    background: rgba(255, 255, 255, 0.822);
+    height:400px;
+    width: 350px;
+    padding-top: 25%;
+    padding-bottom: 25%;
+    text-align: center;
+    align-items: center;
+}
+.form_div > label {
+    letter-spacing: 3px;
+    font-size: 1rem;
+}
+.info_div {
+    text-align: center;
+    margin-top: 20px;
+}
+.info_div {
+    letter-spacing: 1px;
+}
+.field_class {
+    width: 90%;
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px 0px;
+    text-indent: 6px;
+
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-family: 'system-ui';
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+
+}
+
+/* BOTÓN DE ENVIAR */
+
+.submit_class {
+    border-style: none;
+    border-radius: 5px;
+    background-color: #ffd4fb;
+    padding: 8px 20px;
+    font-family: 'system-ui';
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+    cursor: pointer;
+}
+
+.submit_class:hover {
+    background-color: #f57011;
+}
+
+/* FOOTER */
+
+
+
+.gobAra{
+    height: 10px;
+}
